@@ -7,7 +7,7 @@
 
 
 
-var previousSearches = {};
+var previousSearches = [];
 
 
 
@@ -84,6 +84,18 @@ function loadPreviousSearches(){
     console.log(previousSearches);
     if(previousSearches){
         console.log("Populating list..");
+        var srchListEl = $("<div>");
+        srchListEl.attr("class", "btn-group-vertical");
+        $("#previousSearchSection").append(srchListEl);
+        for(var prevSearch in previousSearches){
+            var btn = $("<button>");
+            btn.attr("class", "prevSrchBtn");
+            btn.val(previousSearches[prevSearch]);
+            btn.html(previousSearches[prevSearch]);
+            srchListEl.append(btn);
+        }
+
+
     }else{
         console.log("No Previous Searches done..");
     }
@@ -91,9 +103,22 @@ function loadPreviousSearches(){
 }
 
 
+////Hello Reviewer, I'm trying to get the grasp of this section
+//For some reason I need to go through this if the original pull is null..
+//Why is that?
+
 function storeResults(resultToStore){
-    previousSearches.push(resultToStore);
-    localStorage.setItem("searchRecords", JSON.stringify(previousSearches));
+    console.log(resultToStore);
+    console.log(previousSearches);
+    var tempArray = [];
+    if(previousSearches != null){
+        console.log("This is not null");
+        tempArray = previousSearches;
+    }
+    tempArray.push(resultToStore);
+    console.log(tempArray);
+
+    localStorage.setItem("searchRecords", JSON.stringify(tempArray));
 }
 
 
@@ -105,8 +130,21 @@ $("#srchBtn").on("click", function(event) {
     //console.log(event);
     var searchInput = $("#search-input").val();
     console.log(searchInput);
+    if(!searchInput){
+        alert("We need an input!");
+        return;
+    }
 
     searchAPI(searchInput);
+    loadPreviousSearches();
 
+});
+
+
+$(".prevSrchBtn").on("click", function(event){
+    console.log(this);
+    var searchVal = $(this).val();
+    console.log(searchVal);
+    searchAPI(searchVal);
 
 });
