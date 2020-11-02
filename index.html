@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Weather Web App</title>
+  <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+</head>
+
+<body>
+
+  <header class="jumbotron">
+    <h1 class="display-3">Weather App</h1>
+    <p class="lead">A simple weather checker</p>
+    <p id="currentDay" class="lead"></p>
+  </header>
+  <div class ="container">
+    <div class="row">
+      <div class ="col" id="searchSection">
+        <!-- This guy will contain our search and latest searches -->
+        <div class="row">
+          <form id="search-form">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">City:</span>
+              <input type="text" id="search-input" placeholder="Search for..." aria-label="Username" aria-describedby="basic-addon1"><br>
+            </div>
+            <!-- This button will trigger our AJAX call -->
+            <input id="srchBtn" type="submit" value="Search!">
+          </form>
+        </div>
+        <div class="row">
+          List of previous searches:
+
+        </div>
+
+      </div>
+
+      <div class = "col-6" id = "cityInformation">
+        <!-- This guy will containe retrieved data -->
+        <!-- Retrieved data will be dumped here -->
+      <div class="city"></div>
+      <div class="wind"></div>
+      <div class="humidity"></div>
+      <div class="temp"></div>
+  
+    <!-- Add extra div for the bonus Fahrenheit temp -->
+    <div class="tempF"></div>
+      </div>
+    </div>
+
+  </div>
+
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+
+</html>
