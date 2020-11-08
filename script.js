@@ -45,7 +45,7 @@ function searchAPI(searchValue){
        // console.log(queryURL);
     
         // Log the resulting object
-        //console.log(response);
+        console.log(response);
     
         // Transfer content to HTML
         $(".city").html("<h1>" + response.name + " Weather Details</h1>");
@@ -58,6 +58,8 @@ function searchAPI(searchValue){
         // add temp content to html
         $(".temp").text("Temperature (K) " + response.main.temp);
         $(".tempF").text("Temperature (F) " + tempF.toFixed(2));
+        console.log(response.weather[0]);
+        $(".icon").attr("src", "http://openweathermap.org/img/wn/"+response.weather[0].icon+".png");
     
         // Log the data in the console as well
       //  console.log("Wind Speed: " + response.wind.speed);
