@@ -68,6 +68,8 @@ function searchAPI(searchValue){
         storeResults(response.name);
       });
 
+      //loadPreviousSearches();
+
 }
 
 
@@ -80,19 +82,30 @@ loadPreviousSearches();
 function loadPreviousSearches(){
     //Lets load the previous searches.
     //We should Only search for the last 5?
+    
     previousSearches = JSON.parse(localStorage.getItem("searchRecords"));
-    console.log(previousSearches);
+   // console.log(previousSearches);
+    //$("#previousSearchSection").empty();
     if(previousSearches){
         console.log("Populating list..");
+        
+            //srchListEl.remove();
+        
         var srchListEl = $("<div>");
-        srchListEl.attr("class", "btn-group-vertical");
-        $("#previousSearchSection").append(srchListEl);
-        for(var prevSearch in previousSearches){
-            var btn = $("<button>");
-            btn.attr("class", "prevSrchBtn");
-            btn.val(previousSearches[prevSearch]);
-            btn.html(previousSearches[prevSearch]);
-            srchListEl.append(btn);
+            srchListEl.attr("class", "btn-group-vertical");
+            $("#previousSearchSection").append(srchListEl);
+        
+        
+        
+        //for(var prevSearch in previousSearches){
+            for(var prevSearch = 0; prevSearch <= 4;prevSearch++){
+                if(previousSearches[prevSearch]){
+                    var btn = $("<button>");
+                    btn.attr("class", "prevSrchBtn");
+                    btn.val(previousSearches[previousSearches.length - (prevSearch+1)]);
+                    btn.html(previousSearches[previousSearches.length - (prevSearch+1)]);
+                    srchListEl.append(btn);
+                }
         }
 
 
@@ -134,7 +147,7 @@ $("#srchBtn").on("click", function(event) {
         alert("We need an input!");
         return;
     }
-
+   $("#previousSearchSection").detach();
     searchAPI(searchInput);
     loadPreviousSearches();
 
@@ -145,6 +158,9 @@ $(".prevSrchBtn").on("click", function(event){
     console.log(this);
     var searchVal = $(this).val();
     console.log(searchVal);
+    $("#previousSearchSection").detach();
+   // $("#previousSearchSection").remove();
     searchAPI(searchVal);
+    loadPreviousSearches();
 
 });
