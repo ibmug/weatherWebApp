@@ -42,10 +42,10 @@ function searchAPI(searchValue){
       .then(function(response) {
     
         // Log the queryURL
-        console.log(queryURL);
+       // console.log(queryURL);
     
         // Log the resulting object
-        console.log(response);
+        //console.log(response);
     
         // Transfer content to HTML
         $(".city").html("<h1>" + response.name + " Weather Details</h1>");
@@ -60,9 +60,9 @@ function searchAPI(searchValue){
         $(".tempF").text("Temperature (F) " + tempF.toFixed(2));
     
         // Log the data in the console as well
-        console.log("Wind Speed: " + response.wind.speed);
-        console.log("Humidity: " + response.main.humidity);
-        console.log("Temperature (F): " + tempF);
+      //  console.log("Wind Speed: " + response.wind.speed);
+        //console.log("Humidity: " + response.main.humidity);
+        //console.log("Temperature (F): " + tempF);
 
         //We'll only add the result to storage if we have one.
         storeResults(response.name);
@@ -87,24 +87,35 @@ function loadPreviousSearches(){
    // console.log(previousSearches);
     //$("#previousSearchSection").empty();
     if(previousSearches){
-        console.log("Populating list..");
+     //   console.log("Populating list..");
         
             //srchListEl.remove();
         
-        var srchListEl = $("<div>");
+        var srchListEl = $("#previousSearchSection");
             srchListEl.attr("class", "btn-group-vertical");
-            $("#previousSearchSection").append(srchListEl);
+           // $("#previousSearchSection").append(srchListEl);
         
         
         
         //for(var prevSearch in previousSearches){
             for(var prevSearch = 0; prevSearch <= 4;prevSearch++){
                 if(previousSearches[prevSearch]){
-                    var btn = $("<button>");
-                    btn.attr("class", "prevSrchBtn");
-                    btn.val(previousSearches[previousSearches.length - (prevSearch+1)]);
-                    btn.html(previousSearches[previousSearches.length - (prevSearch+1)]);
-                    srchListEl.append(btn);
+                    var btn = document.getElementById(prevSearch);
+                    //console.log(btn);
+                    if(!btn){
+                      //  console.log("buton has not been created");
+                        var btn = $("<button>");
+                        btn.attr("class", "prevSrchBtn");
+                        btn.attr("id",prevSearch);
+                        btn.attr("type", "button")
+                        btn.val(previousSearches[previousSearches.length - (prevSearch+1)]);
+                        btn.html(previousSearches[previousSearches.length - (prevSearch+1)]);
+                        srchListEl.append(btn);
+                    }else{
+                        //console.log(previousSearches[previousSearches.length - (prevSearch+1)]);
+                        btn.textContent = previousSearches[previousSearches.length - (prevSearch+1)];
+                    }
+
                 }
         }
 
@@ -121,15 +132,15 @@ function loadPreviousSearches(){
 //Why is that?
 
 function storeResults(resultToStore){
-    console.log(resultToStore);
-    console.log(previousSearches);
+   // console.log(resultToStore);
+   // console.log(previousSearches);
     var tempArray = [];
     if(previousSearches != null){
-        console.log("This is not null");
+      //  console.log("This is not null");
         tempArray = previousSearches;
     }
     tempArray.push(resultToStore);
-    console.log(tempArray);
+   // console.log(tempArray);
 
     localStorage.setItem("searchRecords", JSON.stringify(tempArray));
 }
@@ -142,12 +153,12 @@ $("#srchBtn").on("click", function(event) {
     event.preventDefault();
     //console.log(event);
     var searchInput = $("#search-input").val();
-    console.log(searchInput);
+   // console.log(searchInput);
     if(!searchInput){
         alert("We need an input!");
         return;
     }
-   $("#previousSearchSection").detach();
+  // $("#previousSearchSection").detach();
     searchAPI(searchInput);
     loadPreviousSearches();
 
@@ -155,10 +166,10 @@ $("#srchBtn").on("click", function(event) {
 
 
 $(".prevSrchBtn").on("click", function(event){
-    console.log(this);
+   // console.log(this);
     var searchVal = $(this).val();
-    console.log(searchVal);
-    $("#previousSearchSection").detach();
+  //  console.log(searchVal);
+    //$("#previousSearchSection").detach();
    // $("#previousSearchSection").remove();
     searchAPI(searchVal);
     loadPreviousSearches();
